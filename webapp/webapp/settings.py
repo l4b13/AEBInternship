@@ -132,4 +132,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # Default primary key field type
-# ht
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_ALL_ORIGINS = True
