@@ -18,18 +18,21 @@ def getRoutes(request):
 def getUnivs(request):
     univs = University.objects.all()
     serializer = UniversitySerializer(univs, many=True)
+    # print("got get_univs request")
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getDegrees(request):
     degrees = Degree.objects.all()
     serializer = DegreeSerializer(degrees, many=True)
+    # print("got get_degrees request")
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getSt_users(request):
     st_users = St_user.objects.values('surname', 'name', 'patronymic', 'age', 'university', 'current_degree', 'kurs', 'skills', 'is_accepted')
     serializer = St_userSerializer(st_users, many=True)
+    # print("got get_st_users request")
     return Response(serializer.data)
 
 @api_view(['POST'])
