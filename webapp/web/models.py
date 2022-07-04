@@ -23,6 +23,7 @@ class Status(models.Model):
 class St_user(models.Model):
     # login = models.CharField(max_length=16)
     # password = models.CharField(max_length=16)
+    email = models.CharField(max_length=40, blank=True, null=True)
     surname = models.CharField(max_length=40)
     name = models.CharField(max_length=40)
     patronymic = models.CharField(max_length=40)
