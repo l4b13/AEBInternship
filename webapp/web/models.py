@@ -41,4 +41,4 @@ class St_user(models.Model):
     is_accepted = models.CharField(max_length=8, choices=STATUS, default='R')
 
     def __str__(self):
-        return self.id
+        return self.email
