@@ -34,7 +34,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
+venv/
 build/
 develop-eggs/
 dist/
@@ -91,3 +91,6 @@ webapp/webapp/__pycache__/
 webapp/web/migrations/
 webapp/web/api/__pycache__/
 webapp/web/__pycache__/
+webapp/webapp/__init__.py
+webapp/web/__init__.py
+webapp/web/api/__init__.py
