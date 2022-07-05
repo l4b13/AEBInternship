@@ -87,6 +87,7 @@ local_settings.py
 
 .venv
 
+webapp/venv/
 webapp/webapp/__pycache__/
 webapp/web/migrations/
 webapp/web/api/__pycache__/
