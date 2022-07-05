@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import St_user, Status, University, Degree
+from .models import St_user, University, Degree
 
 # Register your models here.
 
@@ -13,4 +13,3 @@ class WebAdmin(admin.ModelAdmin):
 admin.site.register(St_user, WebAdmin)
 admin.site.register(University, WebAdmin)
 admin.site.register(Degree, WebAdmin)
-admin.site.register(Status, WebAdmin)

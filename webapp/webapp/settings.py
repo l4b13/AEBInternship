@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'webapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'AEBdb',
+        'NAME': 'aeb',
         'USER': 'postgres',
         'PASSWORD': '1337',
         'HOST': 'localhost',

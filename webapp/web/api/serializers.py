@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from web.models import St_user, University, Status, Degree
+from web.models import St_user, University, Degree
 from django.contrib.auth.models import User
 
 class UniversitySerializer(ModelSerializer):
@@ -7,14 +7,14 @@ class UniversitySerializer(ModelSerializer):
         model = University
         fields = '__all__'
 
+class UnivNameSerilalizer(ModelSerializer):
+    class Meta:
+        model = University
+        fields = ('uname',)
+
 class DegreeSerializer(ModelSerializer):
     class Meta:
         model = Degree
-        fields = '__all__'
-
-class StatusSerializer(ModelSerializer):
-    class Meta:
-        model = Status
         fields = '__all__'
 
 class UserSerializer(ModelSerializer):
