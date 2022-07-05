@@ -9,8 +9,12 @@ from web.models import St_user, University, Degree, Status
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
-        '/api/token',
-        '/api/token/refresh',
+        # '/api/token',
+        # '/api/token/refresh',
+        'get_st_users/',
+        'add_st_user/',
+        'get_univs/',
+        'get_degrees/',
     ]
     return Response(routes)
 
@@ -18,21 +22,18 @@ def getRoutes(request):
 def getUnivs(request):
     univs = University.objects.all()
     serializer = UniversitySerializer(univs, many=True)
-    # print("got get_univs request")
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getDegrees(request):
     degrees = Degree.objects.all()
     serializer = DegreeSerializer(degrees, many=True)
-    # print("got get_degrees request")
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getSt_users(request):
-    st_users = St_user.objects.values('surname', 'name', 'patronymic', 'age', 'university', 'current_degree', 'kurs', 'skills', 'is_accepted')
+    st_users = St_user.objects.all()
     serializer = St_userSerializer(st_users, many=True)
-    # print("got get_st_users request")
     return Response(serializer.data)
 
 @api_view(['POST'])
