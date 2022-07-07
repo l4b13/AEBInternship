@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from importlib.resources import path
 from django.contrib import admin
 from .models import St_user, University, Degree, Post
@@ -5,12 +6,15 @@ from .models import St_user, University, Degree, Post
 import io
 import mimetypes
 import os
+import datetime
 import smtplib as smtp
 from email.mime.text import MIMEText
 from email.header import Header
 
+from django.urls import path
 
-from django.http import FileResponse, HttpResponse
+
+from django.http import FileResponse, HttpResponse, HttpResponseRedirect
 from reportlab.pdfgen import canvas
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet
@@ -28,25 +32,20 @@ admin.site.site_header = 'Администрирование AEB.Internship'
 
 prac_period = "17.06.2022 - 08.07.2022"
 
-@admin.action(description='Send E-mail')
-def send_email(self, request, queryset):
-    login = 'team33maet@gmail.com'
-    password = 'cuhymfdwgcsxapme'
+@admin.action(description='Игнорировать выбранные заявки')
+def ignore_selected(self, request, queryset):
+    queryset.update(is_accepted='I')
+    self.message_user(request, "Выбранные заявки были проигнорированы.")
 
-    server = smtp.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login(login, password)
+@admin.action(description='Принять выбранные заявки')
+def accept_selected(self, request, queryset):
+    queryset.update(is_accepted='A')
+    self.message_user(request, "Выбранные заявки были приняты.")
 
-    subject = 'AEB.Internship'
-    text = 'Поздравляем, Ваша заявка принята!\n\nПриходите в наш офис по адресу г. Якутск, ул. Ленина д.1, 2 этаж 17 июня в 10:00\n\nДополнительную информацию можете получить в нашем telegram чате \{ссылка\}'
-
-    mime = MIMEText(text, 'plain', 'utf-8')
-    mime['Subject'] = Header(subject, 'utf-8')
-
-    qs = queryset.values_list('email',)
-    for item in qs:
-        server.sendmail(login, item[0], mime.as_string())
-
+@admin.action(description='Отклонить выбранные заявки')
+def reject_selected(self, request, queryset):
+    queryset.update(is_accepted='R')
+    self.message_user(request, "Выбранные заявки были отклонены.")
 
 @admin.action(description='Составить приложение для договора')
 def make_attachment(self, request, queryset):
@@ -125,14 +124,71 @@ def make_attachment(self, request, queryset):
     # response = HttpResponse(path, content_type=mime_type)
     # response['Content-Disposition'] = "attachment; filename=%s" % fName
     # return response
+    self.message_user(request, "Приложение к договору было создано.")
 
 class St_userAdmin(admin.ModelAdmin):
+    change_list_template = '../templates/admin/cb.html'
     list_display = ('email', 'surname', 'name', 'patronymic', 'institute', 'current_degree', 'kurs', 'skills', 'reg_date', 'is_accepted')
     # list_display_links = ('surname', 'name')
     search_fields = ('skills', 'surname', 'name', 'patronymic')
     list_editable = ('is_accepted',)
     list_filter = ('is_accepted', 'institute', 'current_degree', 'reg_date',)
-    actions = [make_attachment, send_email]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path('send_email/', self.send_email),
+            path('ignoreall/', self.ignoreall),
+            path('acceptall/', self.acceptall),
+            path('rejectall/', self.rejectall),
+        ]
+        return my_urls + urls
+
+    def send_email(self, request):
+        login = 'team33maet@gmail.com'
+        password = 'cuhymfdwgcsxapme'
+
+        server = smtp.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(login, password)
+
+        qs = St_user.objects.values_list('email', 'is_accepted',)
+    
+        subject = 'AEB.Internship ' + str(datetime.date.today().year)
+
+        text1 = 'Поздравляем, Ваша заявка принята!\n\nПриходите в наш офис по адресу г. Якутск, ул. Ленина д.1, 2 этаж 17 июня в 10:00.\n\nДополнительную информацию можете получить в нашем telegram чате *ссылка*\n\n\n\n--\nС уважением,\nРуководство ДИТ'
+        text2 = 'Нам очень жаль, но Ваша заявка была отклонена.\n\n\n\n--\nС уважением,\nРуководство ДИТ'
+
+        mime1 = MIMEText(text1, 'plain', 'utf-8')
+        mime2 = MIMEText(text2, 'plain', 'utf-8')
+        mime1['Subject'] = Header(subject, 'utf-8')
+        mime2['Subject'] = Header(subject, 'utf-8')
+    
+        for item in qs:
+            if item[1] == 'A':
+                server.sendmail(login, item[0], mime1.as_string())
+            elif item[1] == 'R':
+                server.sendmail(login, item[0], mime2.as_string())
+
+        self.message_user(request, "Письма были отправлены.")
+        return HttpResponseRedirect("../")
+    
+    def ignoreall(self, request):
+        self.model.objects.all().update(is_accepted='I')
+        self.message_user(request, "Все заявки были проигнорированы.")
+        return HttpResponseRedirect("../")
+
+    def acceptall(self, request):
+        self.model.objects.all().update(is_accepted='A')
+        self.message_user(request, "Все заявки были приняты.")
+        return HttpResponseRedirect("../")
+    
+    def rejectall(self, request):
+        self.model.objects.all().update(is_accepted='R')
+        self.message_user(request, "Все заявки были отклонены.")
+        return HttpResponseRedirect("../")
+
+    actions = [make_attachment, ignore_selected, accept_selected, reject_selected]
 
 class UniversityAdmin(admin.ModelAdmin):
     list_display = ('uname',)

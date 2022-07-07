@@ -1,0 +1,24 @@
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools %}
+    <div>
+        <form action="send_email/" method="POST">
+            {% csrf_token %}
+                <button type="submit">Отправить письма всем студентам</button>
+        </form>
+        <form action="ignoreall/" method="POST">
+            {% csrf_token %}
+                <button type="submit">Проигнорировать все заявки</button>
+        </form>
+        <form action="acceptall/" method="POST">
+            {% csrf_token %}
+                <button type="submit">Принять все заявки</button>
+        </form>
+        <form action="rejectall/" method="POST">
+            {% csrf_token %}
+                <button type="submit">Отклонить все заявки</button>
+        </form>
+    </div>
+    <br />
+    {{ block.super }}
+{% endblock %}
