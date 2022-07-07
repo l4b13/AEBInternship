@@ -14,9 +14,11 @@ urlpatterns = [
     path('get_degrees/', views.getDegrees, name="get_degrees"),
     # path('login/', views.getTest, name="login"),
     # path('register/', views.getTest, name="register"),
+    path('edit/', views.edit, name="edit"),
+    path('some_view/', views.some_view, name="some_view"),
 
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     # path('test/', views.getTest, name="test"),
 ]

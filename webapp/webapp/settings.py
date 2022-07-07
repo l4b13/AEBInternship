@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
+# ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,10 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'web.apps.WebConfig',
-
     'rest_framework',
-
     "corsheaders",
+
 ]
 
 REST_FRAMEWORK = {
@@ -96,7 +97,7 @@ WSGI_APPLICATION = 'webapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'aeb',
+        'NAME': 'aebdb',
         'USER': 'postgres',
         'PASSWORD': '1337',
         'HOST': 'localhost',

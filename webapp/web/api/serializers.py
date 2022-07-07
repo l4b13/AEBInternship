@@ -34,4 +34,4 @@ class gSt_userSerializer(ModelSerializer):
 
     class Meta:
         model = St_user
-        fields = ('email','surname', 'name', 'patronymic', 'age', 'univ', 'deg', 'kurs', 'skills', 'is_accepted')
+        fields = ('email','surname', 'name', 'patronymic', 'univ', 'group', 'deg', 'kurs', 'skills', 'is_accepted')
