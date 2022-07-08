@@ -6,9 +6,9 @@
 
 /* VARIABLE DEFINITIONS */
 :root {
-  --primary: #79aec8;
+  --primary: #27303E;
   --secondary: #27303E;
-  --accent: #f5dd5d;
+  --accent: #ffffff;
   --primary-fg: #fff;
 
   --body-fg: #333;
@@ -16,7 +16,7 @@
   --body-quiet-color: #666;
   --body-loud-color: #000;
 
-  --header-color: #ffc;
+  --header-color: #d5e8fc;
   --header-branding-color: var(--accent);
   --header-bg: var(--secondary);
   --header-link-color: var(--primary-fg);
@@ -35,18 +35,18 @@
   --error-fg: #ba2121;
 
   --message-success-bg: #dfd;
-  --message-warning-bg: #ffc;
+  --message-warning-bg: #d5e8fc;
   --message-error-bg: #ffefef;
 
   --darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
   --selected-bg: #e4e4e4; /* E.g. selected table cells */
-  --selected-row: #ffc;
+  --selected-row: #d5e8fc;
 
   --button-fg: #fff;
   --button-bg: var(--primary);
-  --button-hover-bg: #609ab6;
+  --button-hover-bg: #2f88f0;
   --default-button-bg: var(--secondary);
-  --default-button-hover-bg: #205067;
+  --default-button-hover-bg: #2f88f0;
   --close-button-bg: #888; /* Previously #bbb, contrast 1.92 */
   --close-button-hover-bg: #747474;
   --delete-button-bg: #ba2121;

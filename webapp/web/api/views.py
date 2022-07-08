@@ -30,7 +30,6 @@ def getRoutes(request):
         'add_st_user/',
         'get_univs/',
         'get_degrees/',
-        'get_insts/',
     ]
     return Response(routes)
 
