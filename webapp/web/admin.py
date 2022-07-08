@@ -128,7 +128,7 @@ def make_attachment(self, request, queryset):
 
 class St_userAdmin(admin.ModelAdmin):
     change_list_template = '../templates/admin/cb.html'
-    list_display = ('email', 'surname', 'name', 'patronymic', 'institute', 'current_degree', 'kurs', 'skills', 'reg_date', 'is_accepted')
+    list_display = ('email', 'surname', 'name', 'patronymic', 'age', 'institute', 'current_degree', 'kurs', 'skills', 'reg_date', 'is_accepted')
     # list_display_links = ('surname', 'name')
     search_fields = ('skills', 'surname', 'name', 'patronymic')
     list_editable = ('is_accepted',)
