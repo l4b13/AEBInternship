@@ -43,6 +43,7 @@ class St_user(models.Model):
     email = models.CharField(max_length=40)
     surname = models.CharField(max_length=40)
     name = models.CharField(max_length=40)
+    age = models.IntegerField()
     patronymic = models.CharField(max_length=40)
     group = models.CharField(max_length=20, blank=True)
     university = models.ForeignKey(University, on_delete=models.CASCADE, null=True)
