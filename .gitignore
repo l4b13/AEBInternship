@@ -85,9 +85,9 @@ target/
 __pycache__/
 local_settings.py
 
-.venv
+*/venv
 
-webapp/venv/
+webapp/venv
 */__pycache__/
 */migrations/
 */__init__.py
