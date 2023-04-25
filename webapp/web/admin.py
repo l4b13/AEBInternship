@@ -145,8 +145,8 @@ class St_userAdmin(admin.ModelAdmin):
         return my_urls + urls
 
     def send_email(self, request):
-        login = 'team33maet@gmail.com'
-        password = 'cuhymfdwgcsxapme'
+        login = 'example@gmail.com' # mail
+        password = 'password' # password
 
         server = smtp.SMTP('smtp.gmail.com', 587)
         server.starttls()
